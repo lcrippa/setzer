@@ -1,0 +1,3 @@
+# LaTeX documentation has long lines
+setzer source: source-is-missing *data/resources/help/*
+setzer source: very-long-line-length-in-source-file *data/resources/help/*

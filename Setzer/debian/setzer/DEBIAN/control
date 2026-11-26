@@ -1,0 +1,14 @@
+Package: setzer
+Version: 66-1
+Architecture: all
+Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+Installed-Size: 8907
+Depends: python3:any, gir1.2-adw-1, gir1.2-gtk-4.0, gir1.2-gtksource-5, gir1.2-pango-1.0, gir1.2-poppler-0.18, gir1.2-webkit-6.0, gir1.2-xdp-1.0, python3-bibtexparser, python3-cairo, python3-gi, python3-gi-cairo, python3-numpy, python3-pexpect, python3-willow
+Recommends: texlive-latex-recommended, latexmk
+Section: tex
+Priority: optional
+Homepage: https://www.cvfosammmm.org/setzer/
+Description: simple yet full-featured LaTeX editor
+ Setzer features shortcuts for many LaTeX elements and symbols, a document
+ creation wizard, a dark mode, a high screen to content ratio and a good
+ side-by-side pdf viewer.

@@ -1,0 +1,13 @@
+diff --git a/setzer/workspace/preview_panel/preview_panel_viewgtk.py b/setzer/workspace/preview_panel/preview_panel_viewgtk.py
+index 6b4b9dc..1090015 100644
+--- a/setzer/workspace/preview_panel/preview_panel_viewgtk.py
++++ b/setzer/workspace/preview_panel/preview_panel_viewgtk.py
+@@ -74,7 +74,7 @@ class PreviewPanelView(Gtk.Box):
+         self.action_bar_right.append(self.recolor_pdf_toggle)
+         self.action_bar_right.append(self.external_viewer_button)
+ 
+-        self.paging_label = FixedWidthLabel(100)
++        self.paging_label = FixedWidthLabel(150)
+         self.paging_label.layout.set_alignment(Pango.Alignment.LEFT)
+         self.paging_label.get_style_context().add_class('paging-widget')
+ 

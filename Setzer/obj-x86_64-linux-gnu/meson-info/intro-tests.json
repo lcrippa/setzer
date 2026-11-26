@@ -1,0 +1,43 @@
+[
+  {
+    "cmd": [
+      "/usr/bin/appstreamcli",
+      "validate",
+      "--no-net",
+      "--pedantic",
+      "data/org.cvfosammmm.Setzer.metainfo.xml"
+    ],
+    "env": {},
+    "name": "validate metainfo file",
+    "workdir": null,
+    "timeout": 30,
+    "suite": [
+      "Setzer"
+    ],
+    "is_parallel": true,
+    "priority": 0,
+    "protocol": "exitcode",
+    "depends": [
+      "3a6eb07@@org.cvfosammmm.Setzer.metainfo.xml@cus"
+    ],
+    "extra_paths": []
+  },
+  {
+    "cmd": [
+      "/usr/bin/desktop-file-validate",
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/../data/org.cvfosammmm.Setzer.desktop"
+    ],
+    "env": {},
+    "name": "validate .desktop file",
+    "workdir": null,
+    "timeout": 30,
+    "suite": [
+      "Setzer"
+    ],
+    "is_parallel": true,
+    "priority": 0,
+    "protocol": "exitcode",
+    "depends": [],
+    "extra_paths": []
+  }
+]

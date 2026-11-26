@@ -1,0 +1,72 @@
+Build started at 2026-11-26T23:02:38.052609
+Main binary: /usr/bin/python3
+Build Options: -Dbuildtype=plain -Dwrap_mode=nodownload -Dprefix=/usr -Dsysconfdir=/etc -Dlocalstatedir=/var -Dlibdir=lib/x86_64-linux-gnu -Dpython.bytecompile=-1
+Python system: Linux
+The Meson build system
+Version: 1.12.1
+Source dir: /home/lorenzo/tools/frankendebian/setzer/Setzer
+Build dir: /home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu
+Build type: native build
+Project name: Setzer
+Project version: 66
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Program python3 found: YES (/usr/bin/python3)
+../meson.build:28: WARNING: Project does not target a minimum version but uses feature deprecated since '0.56.0': meson.source_root. use meson.project_source_root() or meson.global_source_root() instead.
+../meson.build:29: WARNING: Project does not target a minimum version but uses feature deprecated since '0.56.0': meson.source_root. use meson.project_source_root() or meson.global_source_root() instead.
+Program msgfmt found: YES (/usr/bin/msgfmt)
+Program msginit found: YES (/usr/bin/msginit)
+Program msgmerge found: YES (/usr/bin/msgmerge)
+Program xgettext found: YES (/usr/bin/xgettext)
+../data/meson.build:25: WARNING: Project does not target a minimum version but uses feature deprecated since '0.56.0': meson.source_root. use meson.project_source_root() or meson.global_source_root() instead.
+Configuring setzer.1 using configuration
+Configuring setzer using configuration
+Configuring setzer_dev.py using configuration
+Program appstreamcli found: YES (/usr/bin/appstreamcli)
+Adding test "validate metainfo file"
+Program desktop-file-validate found: YES (/usr/bin/desktop-file-validate)
+Adding test "validate .desktop file"
+Build targets in project: 9
+WARNING: Deprecated features used:
+ * 0.56.0: {'meson.source_root'}
+
+Setzer 66
+
+  User defined options
+    buildtype         : plain
+    libdir            : lib/x86_64-linux-gnu
+    localstatedir     : /var
+    prefix            : /usr
+    python.bytecompile: -1
+    sysconfdir        : /etc
+    wrap_mode         : nodownload
+
+Found ninja-1.13.2 at /usr/bin/ninja
+Failed to guess install tag for /usr/share/metainfo/org.cvfosammmm.Setzer.metainfo.xml
+Failed to guess install tag for /usr/share/applications/org.cvfosammmm.Setzer.desktop
+Failed to guess install tag for /usr/share/icons/hicolor/scalable/apps/org.cvfosammmm.Setzer.svg
+Failed to guess install tag for /usr/share/mime/packages/org.cvfosammmm.Setzer.mime.xml
+Failed to guess install tag for /usr/lib/python3/dist-packages/dummy
+Failed to guess install tag for /usr/share/Setzer/dummy
+Failed to guess install tag for /usr/share/metainfo/org.cvfosammmm.Setzer.metainfo.xml
+Failed to guess install tag for /usr/share/applications/org.cvfosammmm.Setzer.desktop
+Failed to guess install tag for /usr/share/icons/hicolor/scalable/apps/org.cvfosammmm.Setzer.svg
+Failed to guess install tag for /usr/share/mime/packages/org.cvfosammmm.Setzer.mime.xml
+Failed to guess install tag for /usr/lib/python3/dist-packages/dummy
+Failed to guess install tag for /usr/share/Setzer/dummy
+Failed to guess install tag for /usr/share/metainfo/org.cvfosammmm.Setzer.metainfo.xml
+Failed to guess install tag for /usr/share/applications/org.cvfosammmm.Setzer.desktop
+Failed to guess install tag for /usr/share/icons/hicolor/scalable/apps/org.cvfosammmm.Setzer.svg
+Failed to guess install tag for /usr/share/mime/packages/org.cvfosammmm.Setzer.mime.xml
+Failed to guess install tag for /usr/lib/python3/dist-packages/dummy
+Failed to guess install tag for /usr/share/Setzer/dummy
+Failed to guess install tag for /usr/share/metainfo/org.cvfosammmm.Setzer.metainfo.xml
+Failed to guess install tag for /usr/share/applications/org.cvfosammmm.Setzer.desktop
+Failed to guess install tag for /usr/share/icons/hicolor/scalable/apps/org.cvfosammmm.Setzer.svg
+Failed to guess install tag for /usr/share/mime/packages/org.cvfosammmm.Setzer.mime.xml
+Failed to guess install tag for /usr/lib/python3/dist-packages/dummy
+Failed to guess install tag for /usr/share/Setzer/dummy

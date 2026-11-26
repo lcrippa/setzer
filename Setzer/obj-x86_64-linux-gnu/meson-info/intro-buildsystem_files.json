@@ -1,0 +1,8 @@
+[
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/meson.build",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/meson.build",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/meson.build",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/setzer.1.in",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/setzer.in",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/tests/meson.build"
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__setzer-pot",
+    "output": "setzer-pot"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/msgfmt -o po/de/LC_MESSAGES/setzer.mo ../po/de.po",
+    "file": "../po/de.po",
+    "output": "po/de/LC_MESSAGES/setzer.mo"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/msgfmt -o po/it/LC_MESSAGES/setzer.mo ../po/it.po",
+    "file": "../po/it.po",
+    "output": "po/it/LC_MESSAGES/setzer.mo"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/msgfmt -o po/es/LC_MESSAGES/setzer.mo ../po/es.po",
+    "file": "../po/es.po",
+    "output": "po/es/LC_MESSAGES/setzer.mo"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/msgfmt -o po/pt_BR/LC_MESSAGES/setzer.mo ../po/pt_BR.po",
+    "file": "../po/pt_BR.po",
+    "output": "po/pt_BR/LC_MESSAGES/setzer.mo"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/msgfmt -o po/zh_CN/LC_MESSAGES/setzer.mo ../po/zh_CN.po",
+    "file": "../po/zh_CN.po",
+    "output": "po/zh_CN/LC_MESSAGES/setzer.mo"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "po/de/LC_MESSAGES/setzer.mo",
+    "output": "setzer-gmo"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__setzer-update-po",
+    "output": "setzer-update-po"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal msgfmthelper --msgfmt=/usr/bin/msgfmt ../data/org.cvfosammmm.Setzer.metainfo.xml.in data/org.cvfosammmm.Setzer.metainfo.xml xml /home/lorenzo/tools/frankendebian/setzer/Setzer/po",
+    "file": "../data/org.cvfosammmm.Setzer.metainfo.xml.in",
+    "output": "data/org.cvfosammmm.Setzer.metainfo.xml"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__test",
+    "output": "test"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson test --no-rebuild --print-errorlogs",
+    "file": "all",
+    "output": "meson-internal__test"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__benchmark",
+    "output": "benchmark"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson test --benchmark --logbase benchmarklog --num-processes=1 --no-rebuild",
+    "file": "all",
+    "output": "meson-internal__benchmark"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__install",
+    "output": "install"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson install --no-rebuild",
+    "file": "PHONY",
+    "output": "meson-internal__install"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__dist",
+    "output": "dist"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson dist",
+    "file": "PHONY",
+    "output": "meson-internal__dist"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__scan-build",
+    "output": "scan-build"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal scanbuild /home/lorenzo/tools/frankendebian/setzer/Setzer /home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu subprojects /usr/bin/meson setup",
+    "file": "PHONY",
+    "output": "meson-internal__scan-build"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__TAGS",
+    "output": "TAGS"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal tags etags /home/lorenzo/tools/frankendebian/setzer/Setzer",
+    "file": "PHONY",
+    "output": "meson-internal__TAGS"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__ctags",
+    "output": "ctags"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal tags ctags /home/lorenzo/tools/frankendebian/setzer/Setzer",
+    "file": "PHONY",
+    "output": "meson-internal__ctags"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__uninstall",
+    "output": "uninstall"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal uninstall",
+    "file": "PHONY",
+    "output": "meson-internal__uninstall"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "po/de/LC_MESSAGES/setzer.mo",
+    "output": "all"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "data/org.cvfosammmm.Setzer.metainfo.xml",
+    "output": "meson-test-prereq"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__clean",
+    "output": "clean"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "",
+    "file": "meson-internal__clean-ctlist",
+    "output": "clean-ctlist"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal cleantrees /home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/meson-private/cleantrees.dat",
+    "file": "PHONY",
+    "output": "meson-internal__clean-ctlist"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/ninja -t clean",
+    "file": "PHONY",
+    "output": "meson-internal__clean"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal regenerate /home/lorenzo/tools/frankendebian/setzer/Setzer .",
+    "file": "../meson.build",
+    "output": "build.ninja"
+  },
+  {
+    "directory": "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu",
+    "command": "/usr/bin/meson --internal regenerate /home/lorenzo/tools/frankendebian/setzer/Setzer .",
+    "file": "PHONY",
+    "output": "reconfigure"
+  }
+]

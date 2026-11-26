@@ -1,0 +1,161 @@
+setzer (66-1) unstable; urgency=medium
+
+  * New upstream version 65
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Tue, 12 Mar 2024 22:33:52 +0100
+
+setzer (62-1) unstable; urgency=medium
+
+  * New upstream version 62
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Sat, 25 Nov 2023 15:06:04 +0100
+
+setzer (61-1) unstable; urgency=medium
+
+  * New upstream version 61
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Wed, 25 Oct 2023 14:11:24 +0200
+
+setzer (60-1) unstable; urgency=medium
+
+  * New upstream version 60
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Wed, 27 Sep 2023 16:46:31 +0200
+
+setzer (59-1) unstable; urgency=medium
+
+  * New upstream version 59
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Thu, 14 Sep 2023 22:19:34 +0200
+
+setzer (56-1) unstable; urgency=medium
+
+  * New upstream version 56
+  * Update standards version to 4.6.2, no changes needed
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Thu, 20 Jul 2023 23:37:55 +0200
+
+setzer (0.4.8-1) unstable; urgency=medium
+
+  * New upstream version 0.4.8
+  * Update standards version to 4.6.1, no changes needed
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Sun, 07 Aug 2022 14:45:41 +0200
+
+setzer (0.4.7-2) unstable; urgency=medium
+
+  [ Moe Master ]
+  * Added the missing dependency: python3-gi-cairo
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Tue, 31 May 2022 12:32:26 +0200
+
+setzer (0.4.7-1) unstable; urgency=medium
+
+  * New upstream version 0.4.7
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Tue, 29 Mar 2022 18:22:23 +0200
+
+setzer (0.4.5-1) unstable; urgency=medium
+
+  * New upstream version 0.4.5
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Sat, 26 Feb 2022 17:19:55 +0100
+
+setzer (0.4.4-1) unstable; urgency=medium
+
+  * New upstream version 0.4.4
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Mon, 21 Feb 2022 12:49:06 +0100
+
+setzer (0.4.3-1) unstable; urgency=medium
+
+  * New upstream version 0.4.3
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Tue, 15 Feb 2022 12:26:23 +0100
+
+setzer (0.4.2-1) unstable; urgency=medium
+
+  * New upstream version 0.4.2
+  * Update standards version to 4.6.0.1, no changes needed
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Tue, 23 Nov 2021 21:32:17 +0100
+
+setzer (0.4.1-1) unstable; urgency=medium
+
+  * New upstream version 0.4.1
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Sat, 23 Jan 2021 17:38:36 +0100
+
+setzer (0.4.0-1) unstable; urgency=medium
+
+  * New upstream version 0.4.0
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Sat, 16 Jan 2021 21:49:38 +0100
+
+setzer (0.3.9-1) unstable; urgency=medium
+
+  * New upstream version 0.3.9
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Thu, 07 Jan 2021 15:32:56 +0100
+
+setzer (0.3.8-1) unstable; urgency=medium
+
+  * New upstream version 0.3.8
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Thu, 17 Dec 2020 11:06:33 +0100
+
+setzer (0.3.7-1) unstable; urgency=medium
+
+  * New upstream version 0.3.7
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Mon, 30 Nov 2020 17:57:04 +0100
+
+setzer (0.3.6-2) unstable; urgency=medium
+
+  * Source-only-upload.
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Tue, 10 Nov 2020 10:59:38 +0100
+
+setzer (0.3.6-1) unstable; urgency=medium
+
+  * New upstream version 0.3.6
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Sun, 08 Nov 2020 19:07:47 +0100
+
+setzer (0.3.5-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Fri, 30 Oct 2020 13:03:10 +0100
+
+setzer (0.3.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update dependencies. (Closes: #972791)
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Sat, 24 Oct 2020 13:15:52 +0200
+
+setzer (0.3.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Source-only-upload. (Closes: #972106)
+
+ -- Anton Gladky <gladk@debian.org>  Sun, 18 Oct 2020 00:37:52 +0200
+
+setzer (0.3.1-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Tue, 08 Sep 2020 09:42:58 +0200
+
+setzer (0.3.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Sat, 29 Aug 2020 16:23:49 +0200
+
+setzer (0.2.5-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #954847)
+
+ -- Stephan Lachnit <stephanlachnit@protonmail.com>  Fri, 01 May 2020 16:28:25 +0200

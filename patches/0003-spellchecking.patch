@@ -1,0 +1,299 @@
+diff --git a/README.md b/README.md
+index 1551049..1d13c97 100644
+--- a/README.md
++++ b/README.md
+@@ -33,6 +33,10 @@ Note: Some distributions may not include systemwide installations of Python modu
+ 5. Install Setzer with: `ninja install -C builddir`<br />
+ Or run it locally: `./scripts/setzer.dev`
+ 
++## Spellchecking
++
++Spellchecking is optional and needs libspelling (e.g. `gir1.2-spelling-1` on Debian) plus a dictionary for your language. Without it Setzer works as before, just without spellchecking.
++
+ ## Building your documents from within the app
+ 
+ To build your documents from within the app you have to install a LaTeX interpreter. For example if you want to build with XeLaTeX, on Debian this can be installed like so:
+diff --git a/data/resources/language-specs/latex.lang b/data/resources/language-specs/latex.lang
+index d3d6ff8..6d32012 100644
+--- a/data/resources/language-specs/latex.lang
++++ b/data/resources/language-specs/latex.lang
+@@ -281,6 +281,13 @@
+           </include>
+         </context>
+ 
++        <context id="key-argument-commands" class="no-spell-check">
++          <match>(\\(?:[a-zA-Z]*cite[a-zA-Z]*|[a-zA-Z]*ref|label|includegraphics|bibliography|bibliographystyle)\*?)(\[[^\]]*\])*\{[^}]*\}</match>
++          <include>
++            <context sub-pattern="1" style-ref="command"/>
++          </include>
++        </context>
++
+         <context id="begin-end-command" class="no-spell-check">
+           <match>(\\(begin|end))\{(.*?)\}</match>
+           <include>
+diff --git a/setzer/dialogs/preferences/pages/page_editor.py b/setzer/dialogs/preferences/pages/page_editor.py
+index c024dd5..be3613a 100644
+--- a/setzer/dialogs/preferences/pages/page_editor.py
++++ b/setzer/dialogs/preferences/pages/page_editor.py
+@@ -19,6 +19,8 @@ import gi
+ gi.require_version('Gtk', '4.0')
+ from gi.repository import Gtk
+ 
++import setzer.document.spellchecking.spellchecking as spellchecking
++
+ 
+ class PageEditor(object):
+ 
+@@ -49,6 +51,25 @@ class PageEditor(object):
+         self.view.option_highlight_matching_brackets.set_active(self.settings.get_value('preferences', 'highlight_matching_brackets'))
+         self.view.option_highlight_matching_brackets.connect('toggled', self.preferences.on_check_button_toggle, 'highlight_matching_brackets')
+ 
++        self.init_spellchecking()
++
++    def init_spellchecking(self):
++        languages = spellchecking.get_languages()
++        self.view.spelling_box.set_visible(len(languages) > 0)
++
++        self.spelling_language_codes = [''] + [code for code, name in languages]
++        self.view.spelling_language_dropdown.set_model(Gtk.StringList.new([_('System default')] + [name for code, name in languages]))
++        current_code = self.settings.get_value('preferences', 'spelling_language')
++        if current_code in self.spelling_language_codes:
++            self.view.spelling_language_dropdown.set_selected(self.spelling_language_codes.index(current_code))
++        self.view.spelling_language_dropdown.connect('notify::selected', self.on_spelling_language_changed)
++
++        self.view.option_spellchecking.set_active(self.settings.get_value('preferences', 'enable_spellchecking'))
++        self.view.option_spellchecking.connect('toggled', self.preferences.on_check_button_toggle, 'enable_spellchecking')
++
++    def on_spelling_language_changed(self, dropdown, parameter):
++        self.settings.set_value('preferences', 'spelling_language', self.spelling_language_codes[dropdown.get_selected()])
++
+ 
+ class PageEditorView(Gtk.Box):
+ 
+@@ -120,4 +141,26 @@ class PageEditorView(Gtk.Box):
+         self.option_highlight_matching_brackets = Gtk.CheckButton.new_with_label(_('Highlight matching brackets'))
+         self.append(self.option_highlight_matching_brackets)
+ 
++        self.spelling_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
++        self.append(self.spelling_box)
++
++        label = Gtk.Label()
++        label.set_markup('<b>' + _('Spellchecking') + '</b>')
++        label.set_xalign(0)
++        label.set_margin_top(18)
++        label.set_margin_bottom(6)
++        self.spelling_box.append(label)
++        self.option_spellchecking = Gtk.CheckButton.new_with_label(_('Enable spellchecking'))
++        self.spelling_box.append(self.option_spellchecking)
++
++        label = Gtk.Label()
++        label.set_markup(_('Language:'))
++        label.set_xalign(0)
++        label.set_margin_top(18)
++        label.set_margin_bottom(6)
++        self.spelling_box.append(label)
++        self.spelling_language_dropdown = Gtk.DropDown()
++        self.spelling_language_dropdown.set_halign(Gtk.Align.START)
++        self.spelling_box.append(self.spelling_language_dropdown)
++
+ 
+diff --git a/setzer/document/document.py b/setzer/document/document.py
+index adb71db..6857a92 100644
+--- a/setzer/document/document.py
++++ b/setzer/document/document.py
+@@ -34,6 +34,7 @@ import setzer.document.code_folding.code_folding as code_folding
+ import setzer.document.bracket_completion.bracket_completion as bracket_completion
+ import setzer.document.update_matching_blocks.update_matching_blocks as update_matching_blocks
+ import setzer.document.autocomplete.autocomplete as autocomplete
++import setzer.document.spellchecking.spellchecking as spellchecking
+ from setzer.helpers.observable import Observable
+ from setzer.app.service_locator import ServiceLocator
+ from setzer.app.color_manager import ColorManager
+@@ -77,6 +78,7 @@ class Document(Observable):
+         if self.is_latex_document(): self.update_matching_blocks = update_matching_blocks.UpdateMatchingBlocks(self)
+         if self.is_latex_document(): self.bracket_completion = bracket_completion.BracketCompletion(self)
+         if self.is_latex_document(): self.autocomplete = autocomplete.Autocomplete(self)
++        self.spellchecking = spellchecking.Spellchecking(self)
+ 
+         self.settings.connect('settings_changed', self.on_settings_changed)
+ 
+diff --git a/setzer/document/spellchecking/__init__.py b/setzer/document/spellchecking/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/setzer/document/spellchecking/spellchecking.py b/setzer/document/spellchecking/spellchecking.py
+new file mode 100644
+index 0000000..a04b2c3
+--- /dev/null
++++ b/setzer/document/spellchecking/spellchecking.py
+@@ -0,0 +1,108 @@
++#!/usr/bin/env python3
++# coding: utf-8
++
++# Copyright (C) 2017-present Robert Griesel
++# This program is free software: you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation, either version 3 of the License, or
++# (at your option) any later version.
++# 
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++# GNU General Public License for more details.
++# 
++# You should have received a copy of the GNU General Public License
++# along with this program. If not, see <http://www.gnu.org/licenses/>
++
++import gi
++gi.require_version('Gtk', '4.0')
++from gi.repository import Gtk, GLib
++
++try:
++    gi.require_version('Spelling', '1')
++    from gi.repository import Spelling
++except (ValueError, ImportError):
++    Spelling = None
++
++from setzer.app.service_locator import ServiceLocator
++
++
++def is_available():
++    return Spelling != None
++
++def get_languages():
++    ''' Return a list of (code, name) tuples for all available dictionaries. '''
++
++    if Spelling == None: return []
++    provider = Spelling.Provider.get_default()
++    if provider == None: return []
++
++    languages = provider.list_languages()
++    result = [(languages.get_item(i).get_code(), languages.get_item(i).get_name()) for i in range(languages.get_n_items())]
++    return sorted(result, key=lambda language: language[1])
++
++
++class Spellchecking(object):
++    ''' Spellchecking for LaTeX documents (libspelling), optional dependency. '''
++
++    def __init__(self, document):
++        self.document = document
++        self.settings = ServiceLocator.get_settings()
++        self.adapter = None
++
++        if Spelling == None or not document.is_latex_document(): return
++
++        self.set_language(self.settings.get_value('preferences', 'spelling_language'))
++        self.adapter = Spelling.TextBufferAdapter.new(document.source_buffer, Spelling.Checker.get_default())
++        self.adapter.set_enabled(self.settings.get_value('preferences', 'enable_spellchecking'))
++
++        self.settings.connect('settings_changed', self.on_settings_changed)
++
++    def on_settings_changed(self, settings, parameter):
++        section, item, value = parameter
++
++        if (section, item) == ('preferences', 'enable_spellchecking'):
++            self.adapter.set_enabled(value)
++        if (section, item) == ('preferences', 'spelling_language'):
++            self.set_language(value)
++
++    def set_language(self, code):
++        if code == '':
++            provider = Spelling.Provider.get_default()
++            if provider == None: return
++            code = provider.get_default_code()
++        Spelling.Checker.get_default().set_language(code)
++
++    def is_active(self):
++        return self.adapter != None and self.adapter.get_enabled()
++
++    def update_at_position(self, x, y):
++        ''' Move cursor to (x, y) in the source view, return True if the word there is misspelled. '''
++
++        buffer = self.document.source_buffer
++        if buffer.get_has_selection(): return False
++
++        view = self.document.source_view
++        buffer_x, buffer_y = view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, int(x), int(y))
++        found, location = view.get_iter_at_location(buffer_x, buffer_y)
++        if not found: return False
++
++        buffer.place_cursor(location)
++        self.adapter.update_corrections()
++        return self.adapter.get_action_enabled('add')
++
++    def get_corrections(self):
++        section = self.adapter.get_menu_model().get_item_link(0, 'section')
++        return [section.get_item_attribute_value(i, 'label', None).get_string() for i in range(section.get_n_items())]
++
++    def correct(self, word):
++        self.adapter.activate_action('correct', GLib.Variant('s', word))
++
++    def add_word(self):
++        self.adapter.activate_action('add', None)
++
++    def ignore_word(self):
++        self.adapter.activate_action('ignore', None)
++
++
+diff --git a/setzer/settings/settings.py b/setzer/settings/settings.py
+index 0fc96f3..4a8d8ba 100644
+--- a/setzer/settings/settings.py
++++ b/setzer/settings/settings.py
+@@ -89,6 +89,8 @@ class Settings(Observable):
+         self.defaults['preferences']['bracket_selection'] = True
+         self.defaults['preferences']['tab_jump_brackets'] = True
+         self.defaults['preferences']['update_matching_blocks'] = True
++        self.defaults['preferences']['enable_spellchecking'] = True
++        self.defaults['preferences']['spelling_language'] = ''
+ 
+         self.defaults['preferences']['use_system_font'] = True
+         textview = Gtk.TextView()
+diff --git a/setzer/workspace/context_menu/context_menu.py b/setzer/workspace/context_menu/context_menu.py
+index b5b25b5..48cf74d 100644
+--- a/setzer/workspace/context_menu/context_menu.py
++++ b/setzer/workspace/context_menu/context_menu.py
+@@ -53,6 +53,8 @@ class ContextMenu(object):
+         self.latex_buttons_separator_pointer.set_visible(self.document != None and self.document.is_latex_document())
+ 
+     def build_popover_pointer(self):
++        self.spelling_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
++        self.popover_pointer.add_widget(self.spelling_box)
+         self.add_basic_buttons(self.popover_pointer)
+ 
+         self.comment_button_pointer = self.create_button(self.popover_pointer, _('Toggle Comment'), 'win.toggle-comment', shortcut=_('Ctrl') + '+K')
+@@ -113,6 +115,7 @@ class ContextMenu(object):
+     def popup_at_cursor(self, x, y):
+         if self.document == None: return
+ 
++        self.update_spelling_buttons(x, y)
+         self.popover_pointer.unparent()
+         self.popover_pointer.set_parent(self.document.view)
+         rect = Gdk.Rectangle()
+@@ -123,6 +126,28 @@ class ContextMenu(object):
+         self.popover_pointer.set_pointing_to(rect)
+         self.popover_pointer.popup()
+ 
++    def update_spelling_buttons(self, x, y):
++        child = self.spelling_box.get_first_child()
++        while child != None:
++            self.spelling_box.remove(child)
++            child = self.spelling_box.get_first_child()
++
++        spellchecking = self.document.spellchecking
++        if not spellchecking.is_active(): return
++        if not spellchecking.update_at_position(x, y): return
++
++        for correction in spellchecking.get_corrections():
++            self.add_spelling_button(correction, lambda correction=correction: spellchecking.correct(correction))
++        self.add_spelling_button(_('Add to Dictionary'), spellchecking.add_word)
++        self.add_spelling_button(_('Ignore All'), spellchecking.ignore_word)
++        self.spelling_box.append(Gtk.Separator.new(Gtk.Orientation.HORIZONTAL))
++
++    def add_spelling_button(self, label, callback):
++        button = MenuBuilder.create_button(label)
++        button.connect('clicked', lambda button: callback())
++        button.connect('clicked', self.on_menu_button_click)
++        self.spelling_box.append(button)
++
+     def on_menu_button_click(self, button):
+         self.popover_pointer.popdown()
+         PopoverManager.popdown()

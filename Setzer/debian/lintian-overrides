@@ -1,0 +1,2 @@
+# LaTeX documentation used in program, not documentation of Setzer itself
+setzer: package-contains-documentation-outside-usr-share-doc *usr/share/Setzer/resources/help/*

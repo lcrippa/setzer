@@ -1,0 +1,11 @@
+[options]
+buildtype = plain
+wrap_mode = nodownload
+prefix = /usr
+sysconfdir = /etc
+localstatedir = /var
+libdir = lib/x86_64-linux-gnu
+python.bytecompile = -1
+
+[properties]
+

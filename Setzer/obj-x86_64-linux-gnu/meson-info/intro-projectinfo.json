@@ -1,0 +1,10 @@
+{
+  "version": "66",
+  "descriptive_name": "Setzer",
+  "license": [
+    "GPL-3.0-or-later"
+  ],
+  "license_files": [],
+  "subproject_dir": "subprojects",
+  "subprojects": []
+}

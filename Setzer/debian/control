@@ -1,0 +1,41 @@
+Source: setzer
+Section: tex
+Priority: optional
+Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+Uploaders: Stephan Lachnit <stephanlachnit@debian.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-sequence-python3,
+ meson,
+Rules-Requires-Root: no
+Standards-Version: 4.6.2
+Homepage: https://www.cvfosammmm.org/setzer/
+Vcs-Browser: https://salsa.debian.org/science-team/setzer
+Vcs-Git: https://salsa.debian.org/science-team/setzer.git
+
+Package: setzer
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ gir1.2-adw-1,
+ gir1.2-gtk-4.0,
+ gir1.2-gtksource-5,
+ gir1.2-pango-1.0,
+ gir1.2-poppler-0.18,
+ gir1.2-webkit-6.0,
+ gir1.2-xdp-1.0,
+ python3-bibtexparser,
+ python3-cairo,
+ python3-gi,
+ python3-gi-cairo,
+ python3-numpy,
+ python3-pexpect,
+ python3-willow,
+Recommends:
+ texlive-latex-recommended,
+ latexmk,
+Description: simple yet full-featured LaTeX editor
+ Setzer features shortcuts for many LaTeX elements and symbols, a document
+ creation wizard, a dark mode, a high screen to content ratio and a good
+ side-by-side pdf viewer.

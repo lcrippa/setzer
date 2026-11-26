@@ -1,0 +1,65 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Setzer
+Upstream-Contact: Cvfosammmm <https://www.cvfosammmm.org/>
+Source: https://github.com/cvfosammmm/Setzer
+
+Files: *
+Copyright: 2020-2023 cvfosammmm <https://www.cvfosammmm.org/>
+License: GPL-3.0-or-later
+
+Files: data/org.cvfosammmm.Setzer.metainfo.xml.in
+Copyright: 2020-2023 cvfosammmm <https://www.cvfosammmm.org/>
+License: CC0-1.0
+
+Files: data/resources/help/*.html
+Copyright: Karl Berry, Stephen Gilmore, Torsten Martinsen
+License: latex-manual-license
+
+Files: debian/*
+Copyright: 2020-2023 Stephan Lachnit <stephanlachnit@debian.org>
+License: GPL-3.0-or-later
+
+License: GPL-3.0-or-later
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
+License: CC0-1.0
+ On Debian systems, the complete text of the Create Commons Universal License
+ version 1.0 can be found in "/usr/share/common-licenses/CC0-1.0".
+
+License: latex-manual-license
+ This document is an unofficial reference manual for LaTeX, a
+ document preparation system, version of October 2018.
+ .
+ This manual was originally translated from LATEX.HLP v1.0a in the
+ VMS Help Library.  The pre-translation version was written by
+ George D. Greenwade of Sam Houston State University.  The
+ LaTeX 2.09 version was written by Stephen Gilmore.  The
+ LaTeX2e version was adapted from this by Torsten Martinsen.  Karl
+ Berry made further updates and additions, and gratefully acknowledges
+ using Hypertext Help with LaTeX, by Sheldon Green, and
+ LaTeX Command Summary (for LaTeX 2.09) by
+ L. Botway and C. Biemesderfer (published by the TeX Users
+ Group as TeXniques number 10), as reference material.  We also
+ gratefully acknowledge additional material appearing in
+ latex2e-reference by Martin Herbert Dietze.  (From these references no
+ text was directly copied.)
+ .
+ Copyright 2007, 2008, 2009, 2010, 2011, 2012, 2013,
+ 2014, 2015, 2016, 2017, 2018 Karl Berry.
+ .
+ Copyright 1988, 1994, 2007 Stephen Gilmore.
+ .
+ Copyright 1994, 1995, 1996 Torsten Martinsen.
+ .
+ Permission is granted to make and distribute verbatim copies of
+ this manual provided the copyright notice and this permission notice
+ are preserved on all copies.
+ .
+ Permission is granted to copy and distribute modified versions of this
+ manual under the conditions for verbatim copying, provided that the entire
+ resulting derived work is distributed under the terms of a permission
+ notice identical to this one.
+ .
+ Permission is granted to copy and distribute translations of this manual
+ into another language, under the above conditions for modified versions.

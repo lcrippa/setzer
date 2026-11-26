@@ -1,0 +1,51 @@
+diff --git a/setzer/widgets/scrolling_widget/scrolling_widget.py b/setzer/widgets/scrolling_widget/scrolling_widget.py
+index 3027f26..d6cda39 100644
+--- a/setzer/widgets/scrolling_widget/scrolling_widget.py
++++ b/setzer/widgets/scrolling_widget/scrolling_widget.py
+@@ -17,7 +17,7 @@
+ 
+ import gi
+ gi.require_version('Gtk', '4.0')
+-from gi.repository import GObject, Gdk, Gtk
++from gi.repository import GObject, GLib, Gdk, Gtk
+ 
+ import time
+ 
+@@ -34,6 +34,7 @@ class ScrollingWidget(Observable):
+         self.cursor_x, self.cursor_y = None, None
+         self.scrolling_multiplier = 2.5
+         self.last_cursor_scrolling_change = time.time()
++        self.scrollbar_timeout_id = None
+ 
+         self.view = Gtk.Overlay()
+         self.content = Gtk.DrawingArea()
+@@ -201,7 +202,7 @@ class ScrollingWidget(Observable):
+             self.update_scrollbars()
+             self.content.queue_draw()
+ 
+-    def update_scrollbars(self):
++    def update_scrollbars(self, schedule_hide_check=True):
+         self.scrollbar_x.set_visible(self.adjustment_x.get_upper() - self.adjustment_x.get_page_size() >= 1)
+         self.scrollbar_y.set_visible(self.adjustment_y.get_upper() - self.adjustment_y.get_page_size() >= 1)
+ 
+@@ -225,7 +226,19 @@ class ScrollingWidget(Observable):
+             else:
+                 self.scrollbar_x.get_style_context().remove_class('hidden')
+ 
+-        GObject.timeout_add(1750, self.update_scrollbars)
++        # keep at most one pending timeout (to hide the scrollbars after
++        # inactivity); adding a new one on every call piles up timeouts that
++        # never go away, making the application slower and slower
++        if self.scrollbar_timeout_id != None:
++            GLib.source_remove(self.scrollbar_timeout_id)
++            self.scrollbar_timeout_id = None
++        if schedule_hide_check:
++            self.scrollbar_timeout_id = GLib.timeout_add(1750, self.on_scrollbar_timeout)
++        return False
++
++    def on_scrollbar_timeout(self):
++        self.scrollbar_timeout_id = None
++        self.update_scrollbars(schedule_hide_check=False)
+         return False
+ 
+ 

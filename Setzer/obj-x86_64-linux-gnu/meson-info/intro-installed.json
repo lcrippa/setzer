@@ -1,0 +1,15 @@
+{
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/de/LC_MESSAGES/setzer.mo": "/usr/share/locale/de/LC_MESSAGES/setzer.mo",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/it/LC_MESSAGES/setzer.mo": "/usr/share/locale/it/LC_MESSAGES/setzer.mo",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/es/LC_MESSAGES/setzer.mo": "/usr/share/locale/es/LC_MESSAGES/setzer.mo",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/pt_BR/LC_MESSAGES/setzer.mo": "/usr/share/locale/pt_BR/LC_MESSAGES/setzer.mo",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/zh_CN/LC_MESSAGES/setzer.mo": "/usr/share/locale/zh_CN/LC_MESSAGES/setzer.mo",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/data/org.cvfosammmm.Setzer.metainfo.xml": "/usr/share/metainfo/org.cvfosammmm.Setzer.metainfo.xml",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.desktop": "/usr/share/applications/org.cvfosammmm.Setzer.desktop",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.svg": "/usr/share/icons/hicolor/scalable/apps/org.cvfosammmm.Setzer.svg",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.mime.xml": "/usr/share/mime/packages/org.cvfosammmm.Setzer.mime.xml",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/setzer": "/usr/bin/setzer",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/data/setzer.1": "/usr/share/man/man1/setzer.1",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/setzer": "/usr/lib/python3/dist-packages/setzer",
+  "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/resources": "/usr/share/Setzer/resources"
+}

@@ -1,0 +1,469 @@
+diff --git a/setzer/document/build_system/build_system.py b/setzer/document/build_system/build_system.py
+index a49a14c..1ca5796 100644
+--- a/setzer/document/build_system/build_system.py
++++ b/setzer/document/build_system/build_system.py
+@@ -72,7 +72,14 @@ class BuildSystem(Observable):
+ 
+         self.document.preview.connect('pdf_changed', self.update_can_sync)
+ 
+-        GObject.timeout_add(50, self.results_loop)
++        self.results_source = None
++        self.is_closed = False
++
++    def close(self):
++        self.is_closed = True
++        if self.active_query != None:
++            self.active_query.jobs = []
++            self.active_query = None
+ 
+     def change_build_state(self, state):
+         self.build_state = state
+@@ -175,6 +182,9 @@ class BuildSystem(Observable):
+         return self.build_log_data['badbox_count']
+ 
+     def results_loop(self):
++        if self.is_closed:
++            self.results_source = None
++            return False
+         if self.active_query != None:
+             if self.active_query.is_done():
+                 build_result = self.active_query.get_build_result()
+@@ -183,6 +193,9 @@ class BuildSystem(Observable):
+                 if forward_sync_result != None or backward_sync_result != None or build_result != None:
+                     self.parse_result({'build': build_result, 'forward_sync': forward_sync_result, 'backward_sync': backward_sync_result})
+                 self.active_query = None
++        if self.active_query == None:
++            self.results_source = None
++            return False
+         return True
+ 
+     def parse_result(self, result_blob):
+@@ -245,6 +258,8 @@ class BuildSystem(Observable):
+     def add_query(self, query):
+         self.stop_building(notify=False)
+         self.active_query = query
++        if self.results_source == None:
++            self.results_source = GObject.timeout_add(50, self.results_loop)
+         thread.start_new_thread(self.execute_query, (query,))
+ 
+         self.change_build_state('building_in_progress')
+diff --git a/setzer/document/build_widget/build_widget_viewgtk.py b/setzer/document/build_widget/build_widget_viewgtk.py
+index 9ecc9aa..449a96f 100644
+--- a/setzer/document/build_widget/build_widget_viewgtk.py
++++ b/setzer/document/build_widget/build_widget_viewgtk.py
+@@ -17,7 +17,7 @@
+ 
+ import gi
+ gi.require_version('Gtk', '4.0')
+-from gi.repository import Gtk, GObject
++from gi.repository import Gtk, GObject, GLib
+ 
+ 
+ class BuildWidgetView(Gtk.Box):
+@@ -31,6 +31,8 @@ class BuildWidgetView(Gtk.Box):
+         self.timer = 0
+         self.timer_active = False
+         self.state_change_count = 0
++        self.timer_source = None
++        self.reveal_source = None
+         
+         self.build_button = Gtk.Button()
+         self.build_button.set_child(Gtk.Image.new_from_icon_name('builder-build-symbolic'))
+@@ -58,14 +60,30 @@ class BuildWidgetView(Gtk.Box):
+         
+     def start_timer(self):
+         self.timer_active = True
+-        GObject.timeout_add(50, self.increment_timer)
++        if self.timer_source != None:
++            GLib.source_remove(self.timer_source)
++        self.timer_source = GObject.timeout_add(50, self.increment_timer)
+         
+     def increment_timer(self):
+         if self.timer_active:
+             self.timer += 50
+             if self.timer // 1000 >= 1:
+                 self.label.set_text('{}:{:02}'.format(self.timer // 60000, (self.timer % 60000) // 1000))
+-        return self.timer_active
++            return True
++        self.timer_source = None
++        return False
++
++    def cancel_reveal(self):
++        if self.reveal_source != None:
++            GLib.source_remove(self.reveal_source)
++            self.reveal_source = None
++
++    def close(self):
++        self.timer_active = False
++        if self.timer_source != None:
++            GLib.source_remove(self.timer_source)
++            self.timer_source = None
++        self.cancel_reveal()
+ 
+     def stop_timer(self):
+         self.timer_active = False
+@@ -77,7 +95,8 @@ class BuildWidgetView(Gtk.Box):
+     def show_timer(self):
+         self.build_timer.set_visible(True)
+         self.state_change_count += 1
+-        GObject.timeout_add(5, self.reveal, self.state_change_count)
++        self.cancel_reveal()
++        self.reveal_source = GObject.timeout_add(5, self.reveal, self.state_change_count)
+         
+     def show_result(self, text=''):
+         self.label.set_markup(text)
+@@ -91,7 +110,8 @@ class BuildWidgetView(Gtk.Box):
+         
+     def hide_timer(self, duration):
+         self.state_change_count += 1
+-        GObject.timeout_add(duration, self.unreveal, self.state_change_count)
++        self.cancel_reveal()
++        self.reveal_source = GObject.timeout_add(duration, self.unreveal, self.state_change_count)
+         
+     def hide_timer_now(self):
+         self.build_timer.set_transition_type(Gtk.RevealerTransitionType.NONE)
+@@ -99,11 +119,13 @@ class BuildWidgetView(Gtk.Box):
+         self.build_timer.set_transition_type(Gtk.RevealerTransitionType.CROSSFADE)
+ 
+     def reveal(self, state_change_count):
++        self.reveal_source = None
+         if self.state_change_count == state_change_count:
+             self.build_timer.set_reveal_child(True)
+         return False
+ 
+     def unreveal(self, state_change_count):
++        self.reveal_source = None
+         if self.state_change_count == state_change_count:
+             self.build_timer.set_reveal_child(False)
+         return False
+diff --git a/setzer/document/document.py b/setzer/document/document.py
+index 6857a92..c52870a 100644
+--- a/setzer/document/document.py
++++ b/setzer/document/document.py
+@@ -18,7 +18,7 @@
+ import gi
+ gi.require_version('GtkSource', '5')
+ gi.require_version('Gtk', '4.0')
+-from gi.repository import GtkSource, Gtk, GObject
++from gi.repository import GtkSource, Gtk, GObject, Gio
+ 
+ import os.path, time
+ 
+@@ -82,6 +82,111 @@ class Document(Observable):
+ 
+         self.settings.connect('settings_changed', self.on_settings_changed)
+ 
++    def close(self):
++        ''' Releases everything that keeps a removed document alive:
++            handlers on global objects, timers and threads. '''
++
++        owners = [self, self.view, self.presenter, self.controller, self.parser, self.code_folding, self.gutter, self.search]
++        for name in ['update_matching_blocks', 'bracket_completion', 'autocomplete', 'spellchecking', 'build_system', 'build_widget', 'preview']:
++            if hasattr(self, name): owners.append(getattr(self, name))
++        if hasattr(self, 'preview'):
++            for name in ['layouter', 'zoom_manager', 'presenter', 'controller', 'page_renderer', 'links_parser']:
++                if hasattr(self.preview, name): owners.append(getattr(self.preview, name))
++        self.settings.disconnect_owned_by(owners)
++
++        self.controller.continue_save_date_loop = False
++        if hasattr(self, 'spellchecking'): self.spellchecking.close()
++        if hasattr(self, 'build_system'): self.build_system.close()
++        if hasattr(self, 'preview'): self.preview.close()
++        if hasattr(self, 'build_widget'): self.build_widget.view.close()
++        self.release_gtk_objects()
++
++    def release_gtk_objects(self):
++        ''' PyGObject keeps Python wrappers of child widgets alive from the C
++            side, and draw functions, signal handlers and Python attributes
++            of widget subclasses point back to this document. That makes the
++            whole graph unreachable for the garbage collector, so it is taken
++            apart here (the widgets are already detached from the window). '''
++
++        main_window = ServiceLocator.get_main_window()
++        objects = list()
++
++        def add_widget_tree(widget):
++            objects.append(widget)
++            child = widget.get_first_child()
++            while child != None:
++                add_widget_tree(child)
++                child = child.get_next_sibling()
++
++        roots = [self.view]
++        if hasattr(self, 'preview'): roots.append(self.preview.view)
++        if hasattr(self, 'build_widget'): roots.append(self.build_widget.view)
++        for root in roots:
++            if root.get_root() == None: add_widget_tree(root)
++
++        for widget in list(objects):
++            controllers = widget.observe_controllers()
++            for i in range(controllers.get_n_items()):
++                objects.append(controllers.get_item(i))
++
++        for widget in list(objects):
++            if isinstance(widget, Gtk.Scrollbar):
++                objects.append(widget.get_adjustment())
++            elif isinstance(widget, Gtk.ScrolledWindow):
++                objects.append(widget.get_hadjustment())
++                objects.append(widget.get_vadjustment())
++            elif isinstance(widget, Gtk.Scrollable):
++                if widget.get_hadjustment() != None: objects.append(widget.get_hadjustment())
++                if widget.get_vadjustment() != None: objects.append(widget.get_vadjustment())
++
++        # other GObjects held in attributes: buffer, adjustments, actions, search context, ...
++        # (only objects owned by this document: never the main window, application, workspace, ...)
++        def is_owned_code(obj):
++            module = type(obj).__module__
++            return module.startswith('setzer.document') or module.startswith('setzer.widgets')
++
++        seen = set()
++        components = list()
++        stack = [self] + [widget for widget in objects if is_owned_code(widget)]
++        while stack:
++            obj = stack.pop()
++            if id(obj) in seen: continue
++            seen.add(id(obj))
++            if isinstance(obj, (Gtk.Window, Gio.Application)) or obj is main_window:
++                continue
++            if isinstance(obj, GObject.Object):
++                if type(obj).__module__.startswith('setzer') and not is_owned_code(obj):
++                    continue
++                if not isinstance(obj, Gtk.Widget) or obj.get_root() == None:
++                    objects.append(obj)
++                    if is_owned_code(obj): stack.extend(vars(obj).values())
++            elif isinstance(obj, dict): stack.extend(obj.values())
++            elif isinstance(obj, (list, tuple, set)): stack.extend(obj)
++            elif is_owned_code(obj):
++                components.append(obj)
++                stack.extend(vars(obj).values())
++
++        unique = dict()
++        for obj in objects: unique[id(obj)] = obj
++        for obj in unique.values():
++            if isinstance(obj, Gtk.Popover) and obj.get_parent() != None:
++                obj.popdown()
++                obj.unparent()
++        for obj in unique.values():
++            if isinstance(obj, Gtk.DrawingArea): obj.set_draw_func(None)
++            if type(obj).__module__.startswith('gi.repository.GtkSource'):
++                # these have handlers of their own (e.g. between search context and buffer),
++                # so only remove the handlers that call back into this document's objects
++                for component in components:
++                    for name in dir(type(component)):
++                        if name.startswith('__') or not callable(getattr(type(component), name, None)): continue
++                        try: obj.disconnect_by_func(getattr(component, name))
++                        except TypeError: pass
++            else:
++                GObject.signal_handlers_destroy(obj)
++            if is_owned_code(obj) and hasattr(obj, '__dict__'):
++                obj.__dict__.clear()
++
+     def on_settings_changed(self, settings, parameter):
+         section, item, value = parameter
+ 
+diff --git a/setzer/document/document_controller.py b/setzer/document/document_controller.py
+index 48d8302..008f6ed 100644
+--- a/setzer/document/document_controller.py
++++ b/setzer/document/document_controller.py
+@@ -132,6 +132,7 @@ class DocumentController(object):
+         self.zoom_threshold = 0
+ 
+     def save_date_loop(self):
++        if not self.continue_save_date_loop: return False
+         if self.document.filename == None: return True
+         if self.deleted_on_disk_dialog_shown_after_last_save: return True
+         if self.changed_on_disk_dialog_shown_after_last_change:
+diff --git a/setzer/document/preview/preview.py b/setzer/document/preview/preview.py
+index 0b4fcb6..fc3b513 100644
+--- a/setzer/document/preview/preview.py
++++ b/setzer/document/preview/preview.py
+@@ -89,6 +89,12 @@ class Preview(Observable):
+     def on_pdf_updated(self, document):
+         self.load_pdf()
+ 
++    def close(self):
++        self.page_renderer.close()
++        self.view.content.close()
++        self.poppler_document = None
++        self.layout = None
++
+     def set_pdf_filename(self, pdf_filename):
+         if pdf_filename != self.pdf_filename:
+             self.pdf_filename = pdf_filename
+diff --git a/setzer/document/preview/preview_page_renderer.py b/setzer/document/preview/preview_page_renderer.py
+index 01a77e6..02903aa 100644
+--- a/setzer/document/preview/preview_page_renderer.py
++++ b/setzer/document/preview/preview_page_renderer.py
+@@ -20,7 +20,7 @@ gi.require_version('Gtk', '4.0')
+ from gi.repository import GObject, Gdk
+ import cairo
+ 
+-import _thread as thread, queue
++import _thread as thread, queue, threading
+ import time
+ import math
+ import numpy as np
+@@ -56,8 +56,15 @@ class PreviewPageRenderer(Observable):
+         self.render_queue = queue.Queue()
+         self.render_queue_low_priority = queue.Queue()
+         self.rendered_pages_queue = queue.Queue()
++        self.running = True
++        self.work_event = threading.Event()
++        self.rendered_pages_source = None
+         thread.start_new_thread(self.render_page_loop, ())
+-        GObject.timeout_add(50, self.rendered_pages_loop)
++
++    def close(self):
++        self.running = False
++        self.work_event.set()
++        self.rendered_pages = dict()
+ 
+     def on_layout_or_position_changed(self, notifying_object):
+         if self.preview.layout != None:
+@@ -77,6 +84,8 @@ class PreviewPageRenderer(Observable):
+     def activate(self):
+         with self.is_active_lock:
+             self.is_active = True
++        if self.rendered_pages_source == None and self.running:
++            self.rendered_pages_source = GObject.timeout_add(50, self.rendered_pages_loop)
+         self.update_rendered_pages()
+ 
+     def deactivate(self):
+@@ -89,17 +98,21 @@ class PreviewPageRenderer(Observable):
+         self.pdf_date = None
+ 
+     def render_page_loop(self):
+-        while True:
+-            with self.is_active_lock:
+-                is_active = self.is_active
+-            todo = None
+-            if is_active:
+-                try: todo = self.render_queue.get(block=False)
+-                except queue.Empty:
+-                    try: todo = self.render_queue_low_priority.get(block=False)
++        while self.running:
++            self.work_event.wait(2.0)
++            self.work_event.clear()
++            while self.running:
++                with self.is_active_lock:
++                    is_active = self.is_active
++                todo = None
++                if is_active:
++                    try: todo = self.render_queue.get(block=False)
+                     except queue.Empty:
+-                        todo = None
+-            if todo != None:
++                        try: todo = self.render_queue_low_priority.get(block=False)
++                        except queue.Empty:
++                            todo = None
++                if todo == None: break
++
+                 with self.page_render_count_lock:
+                     render_count = self.page_render_count[todo['page_number']]
+                 with self.visible_pages_lock:
+@@ -117,7 +130,9 @@ class PreviewPageRenderer(Observable):
+                     ctx.fill()
+ 
+                     ctx.scale(todo['scale_factor'] * todo['hidpi_factor'], todo['scale_factor'] * todo['hidpi_factor'])
+-                    page = self.preview.poppler_document.get_page(todo['page_number'])
++                    poppler_document = self.preview.poppler_document
++                    if poppler_document == None: continue
++                    page = poppler_document.get_page(todo['page_number'])
+                     page.render(ctx)
+ 
+                     if invert:
+@@ -146,13 +161,13 @@ class PreviewPageRenderer(Observable):
+                         temp_ctx.fill()
+ 
+                     self.rendered_pages_queue.put({'page_number': todo['page_number'], 'item': [surface, todo['page_width'], todo['pdf_date'], colors, invert]})
+-            else:
+-                time.sleep(0.05)
+ 
+     def rendered_pages_loop(self):
+         with self.is_active_lock:
+             is_active = self.is_active
+-        if not is_active: return True
++        if not is_active or not self.running:
++            self.rendered_pages_source = None
++            return False
+ 
+         changed = False
+         while self.rendered_pages_queue.empty() == False:
+@@ -248,5 +263,6 @@ class PreviewPageRenderer(Observable):
+                         self.render_queue.put(render_task)
+                     elif page_number >= visible_pages_additional[0] and page_number <= visible_pages_additional[1]:
+                         self.render_queue_low_priority.put(render_task)
++        self.work_event.set()
+ 
+ 
+diff --git a/setzer/document/spellchecking/spellchecking.py b/setzer/document/spellchecking/spellchecking.py
+index a04b2c3..d2f5609 100644
+--- a/setzer/document/spellchecking/spellchecking.py
++++ b/setzer/document/spellchecking/spellchecking.py
+@@ -59,9 +59,15 @@ class Spellchecking(object):
+ 
+         self.settings.connect('settings_changed', self.on_settings_changed)
+ 
++    def close(self):
++        if self.adapter != None:
++            self.adapter.set_enabled(False)
++            self.adapter = None
++
+     def on_settings_changed(self, settings, parameter):
+         section, item, value = parameter
+ 
++        if self.adapter == None: return
+         if (section, item) == ('preferences', 'enable_spellchecking'):
+             self.adapter.set_enabled(value)
+         if (section, item) == ('preferences', 'spelling_language'):
+diff --git a/setzer/helpers/observable.py b/setzer/helpers/observable.py
+index e12ee43..1306817 100644
+--- a/setzer/helpers/observable.py
++++ b/setzer/helpers/observable.py
+@@ -41,6 +41,18 @@ class Observable(object):
+         else:
+             self.connected_functions[change_code] = {callback}
+ 
++    def disconnect_owned_by(self, owners):
++        ''' Removes all callbacks that are bound methods of one of the
++            given objects, so that they can be garbage collected. '''
++
++        for change_code in list(self.connected_functions):
++            for callback in list(self.connected_functions[change_code]):
++                owner = getattr(callback, '__self__', None)
++                if owner is not None and any(owner is candidate for candidate in owners):
++                    self.connected_functions[change_code].discard(callback)
++            if len(self.connected_functions[change_code]) == 0:
++                del(self.connected_functions[change_code])
++
+     def disconnect(self, change_code, callback):
+         if change_code in self.connected_functions:
+             self.connected_functions[change_code].discard(callback)
+diff --git a/setzer/widgets/scrolling_widget/scrolling_widget.py b/setzer/widgets/scrolling_widget/scrolling_widget.py
+index d6cda39..a6a0606 100644
+--- a/setzer/widgets/scrolling_widget/scrolling_widget.py
++++ b/setzer/widgets/scrolling_widget/scrolling_widget.py
+@@ -83,6 +83,11 @@ class ScrollingWidget(Observable):
+         self.secondary_click_controller.connect('pressed', self.on_secondary_button_press)
+         self.content.add_controller(self.secondary_click_controller)
+ 
++    def close(self):
++        if self.scrollbar_timeout_id != None:
++            GLib.source_remove(self.scrollbar_timeout_id)
++            self.scrollbar_timeout_id = None
++
+     def queue_draw(self):
+         self.content.queue_draw()
+ 
+diff --git a/setzer/workspace/workspace.py b/setzer/workspace/workspace.py
+index b2fe88b..0aed23a 100644
+--- a/setzer/workspace/workspace.py
++++ b/setzer/workspace/workspace.py
+@@ -125,6 +125,7 @@ class Workspace(Observable):
+             else:
+                 self.set_active_document(candidate)
+         self.add_change_code('document_removed', document)
++        document.close()
+ 
+     def create_latex_document(self):
+         document = Document('latex')

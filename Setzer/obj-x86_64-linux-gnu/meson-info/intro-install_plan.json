@@ -1,0 +1,93 @@
+{
+  "targets": {
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/de/LC_MESSAGES/setzer.mo": {
+      "destination": "{localedir}/de/LC_MESSAGES/setzer.mo",
+      "tag": "i18n",
+      "subproject": null,
+      "install_rpath": null,
+      "build_rpaths": []
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/it/LC_MESSAGES/setzer.mo": {
+      "destination": "{localedir}/it/LC_MESSAGES/setzer.mo",
+      "tag": "i18n",
+      "subproject": null,
+      "install_rpath": null,
+      "build_rpaths": []
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/es/LC_MESSAGES/setzer.mo": {
+      "destination": "{localedir}/es/LC_MESSAGES/setzer.mo",
+      "tag": "i18n",
+      "subproject": null,
+      "install_rpath": null,
+      "build_rpaths": []
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/pt_BR/LC_MESSAGES/setzer.mo": {
+      "destination": "{localedir}/pt_BR/LC_MESSAGES/setzer.mo",
+      "tag": "i18n",
+      "subproject": null,
+      "install_rpath": null,
+      "build_rpaths": []
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/zh_CN/LC_MESSAGES/setzer.mo": {
+      "destination": "{localedir}/zh_CN/LC_MESSAGES/setzer.mo",
+      "tag": "i18n",
+      "subproject": null,
+      "install_rpath": null,
+      "build_rpaths": []
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/data/org.cvfosammmm.Setzer.metainfo.xml": {
+      "destination": "{datadir}/metainfo/org.cvfosammmm.Setzer.metainfo.xml",
+      "tag": null,
+      "subproject": null,
+      "install_rpath": null,
+      "build_rpaths": []
+    }
+  },
+  "data": {
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.desktop": {
+      "destination": "{datadir}/applications/org.cvfosammmm.Setzer.desktop",
+      "tag": null,
+      "subproject": null
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.svg": {
+      "destination": "{datadir}/icons/hicolor/scalable/apps/org.cvfosammmm.Setzer.svg",
+      "tag": null,
+      "subproject": null
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.mime.xml": {
+      "destination": "{datadir}/mime/packages/org.cvfosammmm.Setzer.mime.xml",
+      "tag": null,
+      "subproject": null
+    }
+  },
+  "configure": {
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/setzer": {
+      "destination": "{bindir}/setzer",
+      "tag": "runtime",
+      "subproject": null
+    }
+  },
+  "man": {
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/data/setzer.1": {
+      "destination": "share/man/man1/setzer.1",
+      "tag": "man",
+      "subproject": null
+    }
+  },
+  "install_subdirs": {
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/setzer": {
+      "destination": "{py_purelib}/setzer",
+      "tag": null,
+      "subproject": null,
+      "exclude_dirs": [],
+      "exclude_files": []
+    },
+    "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/resources": {
+      "destination": "{datadir}/Setzer/resources",
+      "tag": null,
+      "subproject": null,
+      "exclude_dirs": [],
+      "exclude_files": []
+    }
+  }
+}

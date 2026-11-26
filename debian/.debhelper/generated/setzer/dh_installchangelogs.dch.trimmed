@@ -1,0 +1,39 @@
+setzer (66-1) unstable; urgency=medium
+
+  * New upstream version 65
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Tue, 12 Mar 2024 22:33:52 +0100
+
+setzer (62-1) unstable; urgency=medium
+
+  * New upstream version 62
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Sat, 25 Nov 2023 15:06:04 +0100
+
+setzer (61-1) unstable; urgency=medium
+
+  * New upstream version 61
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Wed, 25 Oct 2023 14:11:24 +0200
+
+setzer (60-1) unstable; urgency=medium
+
+  * New upstream version 60
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Wed, 27 Sep 2023 16:46:31 +0200
+
+setzer (59-1) unstable; urgency=medium
+
+  * New upstream version 59
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Thu, 14 Sep 2023 22:19:34 +0200
+
+setzer (56-1) unstable; urgency=medium
+
+  * New upstream version 56
+  * Update standards version to 4.6.2, no changes needed
+
+ -- Stephan Lachnit <stephanlachnit@debian.org>  Thu, 20 Jul 2023 23:37:55 +0200
+
+# Older entries have been removed from this changelog.
+# To read the complete changelog use `apt changelog setzer`.

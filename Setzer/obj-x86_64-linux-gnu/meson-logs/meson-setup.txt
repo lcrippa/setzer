@@ -1,0 +1,38 @@
+The Meson build system
+Version: 1.12.1
+Source dir: /home/lorenzo/tools/frankendebian/setzer/Setzer
+Build dir: /home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu
+Build type: native build
+Project name: Setzer
+Project version: 66
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Program python3 found: YES (/usr/bin/python3)
+../meson.build:28: WARNING: Project does not target a minimum version but uses feature deprecated since '0.56.0': meson.source_root. use meson.project_source_root() or meson.global_source_root() instead.
+../meson.build:29: WARNING: Project does not target a minimum version but uses feature deprecated since '0.56.0': meson.source_root. use meson.project_source_root() or meson.global_source_root() instead.
+Program msgfmt found: YES (/usr/bin/msgfmt)
+Program msginit found: YES (/usr/bin/msginit)
+Program msgmerge found: YES (/usr/bin/msgmerge)
+Program xgettext found: YES (/usr/bin/xgettext)
+../data/meson.build:25: WARNING: Project does not target a minimum version but uses feature deprecated since '0.56.0': meson.source_root. use meson.project_source_root() or meson.global_source_root() instead.
+Configuring setzer.1 using configuration
+Configuring setzer using configuration
+Configuring setzer_dev.py using configuration
+Program appstreamcli found: YES (/usr/bin/appstreamcli)
+Program desktop-file-validate found: YES (/usr/bin/desktop-file-validate)
+Build targets in project: 9
+WARNING: Deprecated features used:
+ * 0.56.0: {'meson.source_root'}
+
+Setzer 66
+
+  User defined options
+    buildtype         : plain
+    libdir            : lib/x86_64-linux-gnu
+    localstatedir     : /var
+    prefix            : /usr
+    python.bytecompile: -1
+    sysconfdir        : /etc
+    wrap_mode         : nodownload
+
+Found ninja-1.13.2 at /usr/bin/ninja

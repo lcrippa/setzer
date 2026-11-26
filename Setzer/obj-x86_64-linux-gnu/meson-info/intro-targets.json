@@ -1,0 +1,264 @@
+[
+  {
+    "name": "setzer-pot",
+    "id": "6199aec@@setzer-pot@run",
+    "type": "run",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/setzer-pot"
+    ],
+    "build_by_default": false,
+    "target_sources": [],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": false
+  },
+  {
+    "name": "setzer-de.mo",
+    "id": "49bdae1@@setzer-de.mo@cus",
+    "type": "custom",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/de/LC_MESSAGES/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/de/LC_MESSAGES/setzer.mo"
+    ],
+    "build_by_default": true,
+    "target_sources": [
+      {
+        "language": "unknown",
+        "compiler": [
+          "/usr/bin/msgfmt",
+          "-o",
+          "@OUTPUT@",
+          "@INPUT@"
+        ],
+        "parameters": [],
+        "sources": [
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/de.po"
+        ],
+        "generated_sources": []
+      }
+    ],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": true,
+    "install_filename": [
+      "/usr/share/locale/zh_CN/LC_MESSAGES/setzer.mo"
+    ]
+  },
+  {
+    "name": "setzer-it.mo",
+    "id": "f7cf49c@@setzer-it.mo@cus",
+    "type": "custom",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/it/LC_MESSAGES/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/it/LC_MESSAGES/setzer.mo"
+    ],
+    "build_by_default": true,
+    "target_sources": [
+      {
+        "language": "unknown",
+        "compiler": [
+          "/usr/bin/msgfmt",
+          "-o",
+          "@OUTPUT@",
+          "@INPUT@"
+        ],
+        "parameters": [],
+        "sources": [
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/it.po"
+        ],
+        "generated_sources": []
+      }
+    ],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": true,
+    "install_filename": [
+      "/usr/share/locale/zh_CN/LC_MESSAGES/setzer.mo"
+    ]
+  },
+  {
+    "name": "setzer-es.mo",
+    "id": "5403daf@@setzer-es.mo@cus",
+    "type": "custom",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/es/LC_MESSAGES/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/es/LC_MESSAGES/setzer.mo"
+    ],
+    "build_by_default": true,
+    "target_sources": [
+      {
+        "language": "unknown",
+        "compiler": [
+          "/usr/bin/msgfmt",
+          "-o",
+          "@OUTPUT@",
+          "@INPUT@"
+        ],
+        "parameters": [],
+        "sources": [
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/es.po"
+        ],
+        "generated_sources": []
+      }
+    ],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": true,
+    "install_filename": [
+      "/usr/share/locale/zh_CN/LC_MESSAGES/setzer.mo"
+    ]
+  },
+  {
+    "name": "setzer-pt_BR.mo",
+    "id": "ccb2ba2@@setzer-pt_BR.mo@cus",
+    "type": "custom",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/pt_BR/LC_MESSAGES/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/pt_BR/LC_MESSAGES/setzer.mo"
+    ],
+    "build_by_default": true,
+    "target_sources": [
+      {
+        "language": "unknown",
+        "compiler": [
+          "/usr/bin/msgfmt",
+          "-o",
+          "@OUTPUT@",
+          "@INPUT@"
+        ],
+        "parameters": [],
+        "sources": [
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/pt_BR.po"
+        ],
+        "generated_sources": []
+      }
+    ],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": true,
+    "install_filename": [
+      "/usr/share/locale/zh_CN/LC_MESSAGES/setzer.mo"
+    ]
+  },
+  {
+    "name": "setzer-zh_CN.mo",
+    "id": "1320f3e@@setzer-zh_CN.mo@cus",
+    "type": "custom",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/zh_CN/LC_MESSAGES/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/zh_CN/LC_MESSAGES/setzer.mo"
+    ],
+    "build_by_default": true,
+    "target_sources": [
+      {
+        "language": "unknown",
+        "compiler": [
+          "/usr/bin/msgfmt",
+          "-o",
+          "@OUTPUT@",
+          "@INPUT@"
+        ],
+        "parameters": [],
+        "sources": [
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/zh_CN.po"
+        ],
+        "generated_sources": []
+      }
+    ],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": true,
+    "install_filename": [
+      "/usr/share/locale/zh_CN/LC_MESSAGES/setzer.mo"
+    ]
+  },
+  {
+    "name": "setzer-gmo",
+    "id": "6199aec@@setzer-gmo@run",
+    "type": "alias",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/setzer-gmo"
+    ],
+    "build_by_default": false,
+    "target_sources": [],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [
+      "49bdae1@@setzer-de.mo@cus",
+      "f7cf49c@@setzer-it.mo@cus",
+      "5403daf@@setzer-es.mo@cus",
+      "ccb2ba2@@setzer-pt_BR.mo@cus",
+      "1320f3e@@setzer-zh_CN.mo@cus"
+    ],
+    "installed": false
+  },
+  {
+    "name": "setzer-update-po",
+    "id": "6199aec@@setzer-update-po@run",
+    "type": "run",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/po/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/po/setzer-update-po"
+    ],
+    "build_by_default": false,
+    "target_sources": [],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": false
+  },
+  {
+    "name": "org.cvfosammmm.Setzer.metainfo.xml",
+    "id": "3a6eb07@@org.cvfosammmm.Setzer.metainfo.xml@cus",
+    "type": "custom",
+    "defined_in": "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/meson.build",
+    "filename": [
+      "/home/lorenzo/tools/frankendebian/setzer/Setzer/obj-x86_64-linux-gnu/data/org.cvfosammmm.Setzer.metainfo.xml"
+    ],
+    "build_by_default": true,
+    "target_sources": [
+      {
+        "language": "unknown",
+        "compiler": [
+          "/usr/bin/meson",
+          "--internal",
+          "msgfmthelper",
+          "--msgfmt=/usr/bin/msgfmt",
+          "@INPUT@",
+          "@OUTPUT@",
+          "xml",
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/po"
+        ],
+        "parameters": [],
+        "sources": [
+          "/home/lorenzo/tools/frankendebian/setzer/Setzer/data/org.cvfosammmm.Setzer.metainfo.xml.in"
+        ],
+        "generated_sources": []
+      }
+    ],
+    "extra_files": [],
+    "subproject": null,
+    "dependencies": [],
+    "depends": [],
+    "installed": true,
+    "install_filename": [
+      "/usr/share/metainfo/org.cvfosammmm.Setzer.metainfo.xml"
+    ]
+  }
+]
