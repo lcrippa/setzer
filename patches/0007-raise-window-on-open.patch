@@ -1,0 +1,22 @@
+diff --git a/setzer.in b/setzer.in
+index a5cabc2..ee6134b 100755
+--- a/setzer.in
++++ b/setzer.in
+@@ -80,12 +80,17 @@ class MainApplicationController(Adw.Application):
+                     if document_candidate != None:
+                         self.workspace.set_active_document(document_candidate)
+ 
++        # bring the window to the front (it may be behind other windows or minimized)
++        self.main_window.present()
++
+     def do_activate(self):
+         if not self.is_active:
+             Adw.Application.do_activate(self)
+ 
+             self.activate()
+             self.is_active = True
++        else:
++            self.main_window.present()
+ 
+     def activate(self):
+         # setup gettext
